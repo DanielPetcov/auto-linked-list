@@ -66,6 +66,9 @@ void DeleteIndex(List * list);
 // functie de inversare a listei
 void InversList(List * list);
 
+// functie pentru eliberarea memoriei
+void freeMemory(List * list);
+
 //////////////////////////////
 int main(){
     int n;
@@ -77,6 +80,7 @@ int main(){
     afisareList(list);
 
     lucruCuDate(list, &n);
+    freeMemory(list);
     return 0;
 }
 /////////////////////////////
@@ -591,4 +595,16 @@ void InversList(List * list){
         currentNode = next;
     }
     list->head = prev;
+}
+
+// Eliberare memorie
+void freeMemory(List * list){
+    Node * prev = NULL;
+    Node * currentNode = list->head;
+    while(currentNode != NULL){
+        prev = currentNode;
+        currentNode = currentNode->next;
+        free(prev);
+    }
+    free(list);
 }
